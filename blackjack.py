@@ -1,7 +1,7 @@
 # Work on the player class give them the ability to have a hand and to deal the 
 # cards into that hand 
 
-from random import shuffle
+from random import shuffleH
 
 class Card:
     def __init__(self, rank, suit): 
@@ -97,7 +97,7 @@ def main(): # main can be called blackjack or gameplay
     # create a deck of cards outside of the main. 
     deck = Deck()
     deck.shuffle()
-    deck.display()
+    # deck.display()
 
     # Get the deal card method to deal two cards by running it twice and place the cards in the players hand.
     # readme addition observe that the deck is created on line 70. So we use the created deck 
@@ -116,6 +116,7 @@ def main(): # main can be called blackjack or gameplay
     mark.add_card_to_hand(deck.deal_card())
     print("The dealers hand is: ")
     mark.display_hand()
+    print("Okay player, do you want to hit or stand?")
 
     while True:
         print("Please choose H for hit or S for stay.")
@@ -130,18 +131,46 @@ def main(): # main can be called blackjack or gameplay
                 mark.add_card_to_hand(deck.deal_card())
                 print("The Dealers hand is:")
                 mark.display_hand()
-
                 if  mark.score() > 21:
                     print("The Dealer Busts!")
+            else: print ("Programmer needs to figure out what to do in this outcome")
 
         elif (player_choice == "S"):
+            aj.display_hand()
+            if (aj.score() < mark.score()):
+                print("The dealer is closer to 21! Player loses!")
+            
+            if (aj.score() > mark.score()):
+                print("The player is closer to 21! Will the player get the best of the dealer?")
+                mark.add_card_to_hand(deck.deal_card())
+                if(aj.score() > mark.score()):
+                    print("The dealers hand value is: ")
+                    mark.display_hand()
+                    print("The player is closer to 21! The player wins!")
+
+                if(mark.score() > aj.score()):
+                    print("Dealer is closer to 21! Dealer wins!")
+
+                # Problem Area
+                if(mark.score() > 21):
+                    print("Dealer Busts! Player wins!")
+                    if(mark.score() > aj.score()):
+                        print("Dealer is closer to 21 dealer wins!")
+                        if(aj.score() > mark.score()):
+                            print("Player wins!")
+                            if(aj.score() == mark.score()):
+                                print("The dealer and the player are the same distance from 21! Player ties! Money will be refunded!")
             break
         else: print("Please follow instructions! Incorrect entry!")
 
     while mark.score() <= 15:
         mark.add_card_to_hand(deck.deal_card())
-        if mark.score > 21:
+        if mark.score() > 21:
             print("Dealer Busts!")
+    
+    
+
+        
     
     # outcomes: player busts, dealer busts, player wins, player ties, player loses. 
     # if elif statements 
