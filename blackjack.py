@@ -1,7 +1,7 @@
 # Work on the player class give them the ability to have a hand and to deal the 
 # cards into that hand 
 
-from random import shuffleH
+from random import shuffle
 
 class Card:
     def __init__(self, rank, suit): 
