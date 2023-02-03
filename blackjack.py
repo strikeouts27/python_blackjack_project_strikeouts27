@@ -105,94 +105,57 @@ def main(): # main can be called blackjack or gameplay
     # readme we create a player by calling the player class and instantiating an object which is saved in a variable. 
     # We update the add_card_to_hand method by having it accept a dealt_card parameter. 
     # Than on the next line of code we have the player hand be appended by the dealt_card parameter when it is called. 
-    aj = Player("AJ", False)
-    aj.add_card_to_hand(deck.deal_card()) # readme to get the python object aj to accept the card, you need to specifiy the object name and than the method that was called. 
-    aj.add_card_to_hand(deck.deal_card()) # readme This code did not start out this way. we refactored it. which is a term I need to understand. 
+    player = Player("player", False)
+    player.add_card_to_hand(deck.deal_card()) # readme to get the python object player to accept the card, you need to specifiy the object name and than the method that was called. 
+    player.add_card_to_hand(deck.deal_card()) # readme This code did not start out this way. we refactored it. which is a term I need to understand. 
     print("The players hand is:")
-    aj.display_hand()
+    player.display_hand()
     
-    mark = Player("Mark", True)
-    mark.add_card_to_hand(deck.deal_card()) # readme to get the python object aj to accept the card, you need to specifiy the object name and than the method that was called. 
-    mark.add_card_to_hand(deck.deal_card())
+    dealer = Player("dealer", True)
+    dealer.add_card_to_hand(deck.deal_card()) # readme to get the python object player to accept the card, you need to specifiy the object name and than the method that was called. 
+    dealer.add_card_to_hand(deck.deal_card())
     print("The dealers hand is: ")
-    mark.display_hand()
+    dealer.display_hand()
     print("Okay player, do you want to hit or stand?")
 
     while True:
         print("Please choose H for hit or S for stay.")
         player_choice = input()
         if (player_choice == "H"):
-            aj.add_card_to_hand(deck.deal_card())
-            aj.display_hand()
-            if (aj.score() > 21):
-                print("Player Busts! You lose this round!")
+            player.add_card_to_hand(deck.deal_card())
+            player.display_hand()
+            if (player.score() > 21):
+                # print("Player Busts! You lose this round!")
                 break
-            if mark.score() <= 15:
-                mark.add_card_to_hand(deck.deal_card())
+            if dealer.score() <= 15:
+                dealer.add_card_to_hand(deck.deal_card())
                 print("The Dealers hand is:")
-                mark.display_hand()
-                if  mark.score() > 21:
-                    print("The Dealer Busts!")
-            else: print ("Programmer needs to figure out what to do in this outcome")
+                dealer.display_hand()
+                if  dealer.score() > 21:
+                    # print("The Dealer Busts!")
+                    break
 
         elif (player_choice == "S"):
-            aj.display_hand()
-            if (aj.score() < mark.score()):
-                print("The dealer is closer to 21! Player loses!")
-            
-            if (aj.score() > mark.score()):
-                print("The player is closer to 21! Will the player get the best of the dealer?")
-                mark.add_card_to_hand(deck.deal_card())
-                if(aj.score() > mark.score()):
-                    print("The dealers hand value is: ")
-                    mark.display_hand()
-                    print("The player is closer to 21! The player wins!")
-
-                if(mark.score() > aj.score()):
-                    print("Dealer is closer to 21! Dealer wins!")
-
-                # Problem Area
-                if(mark.score() > 21):
-                    print("Dealer Busts! Player wins!")
-                    if(mark.score() > aj.score()):
-                        print("Dealer is closer to 21 dealer wins!")
-                        if(aj.score() > mark.score()):
-                            print("Player wins!")
-                            if(aj.score() == mark.score()):
-                                print("The dealer and the player are the same distance from 21! Player ties! Money will be refunded!")
             break
-        else: print("Please follow instructions! Incorrect entry!")
 
-    while mark.score() <= 15:
-        mark.add_card_to_hand(deck.deal_card())
-        if mark.score() > 21:
-            print("Dealer Busts!")
-    
-    
+    while player.score() > dealer.score():
+        dealer.add_card_to_hand(deck.deal_card())
+        dealer.display_hand()
+        print("dealer card draw")
 
+    if (player.score() > 21):
+        print("Player Busts! You lose!")
         
+    elif(dealer.score() > 21):
+        print("Dealer Busts! Player wins!")
     
-    # outcomes: player busts, dealer busts, player wins, player ties, player loses. 
-    # if elif statements 
-    # commit to git repoistory 
+    elif(player.score() == dealer.score()):
+        print("Its a tie! Bets returned")
+    
+    elif(player.score() > dealer.score()):
+        print("Player is closer to 21! Player wins!")
+    else: 
+        print("Dealer is closer to 21! Dealer wins!")
 
-    # dealers second card decision will happen after we fix players decisons. 
-
-
-
-# how do I call a method on aj. 
-    # Make player 1 and the dealer
-
-#    while True:
-
-        # return cards to the deck
-        # Shuffle the deck of cards close to the start to start a new game. 
-        # Deal 2 cards to the players
-
-        # Loop: display hands and scores 
-        # Ask them to hit or stand. 
-        # Determine Winner
-
-# If the program is run (instead of imported), run the game:
 if __name__ == '__main__':
     main()
